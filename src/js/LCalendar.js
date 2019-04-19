@@ -11,6 +11,13 @@ window.LCalendar = (function() {
     MobileCalendar.prototype = {
         init: function(params) {
             this.type = params.type;
+            // 绑定回调函数
+            var callbacks = params.callback;
+            if(callbacks){
+                for(var callbackName in callbacks){
+                    this[callbackName + 'callback'] = callbacks[callbackName];
+                }
+            }
             this.trigger = document.querySelector(params.trigger);
             if (this.trigger.getAttribute("data-lcalendar") != null) {
                 var arr = this.trigger.getAttribute("data-lcalendar").split(',');
@@ -725,6 +732,9 @@ window.LCalendar = (function() {
                 var date_dd = parseInt(Math.round(_self.gearDate.querySelector(".date_dd").getAttribute("val"))) + 1;
                 date_dd = date_dd > 9 ? date_dd : '0' + date_dd;
                 _self.trigger.value = (date_yy % passY + _self.minY) + "-" + date_mm + "-" + date_dd;
+                if(_self['finishMobileDate' + 'callback']){
+                    _self['finishMobileDate' + 'callback'](_self.trigger.value);
+                }
                 closeMobileCalendar(e);
             }
             //年月确认
