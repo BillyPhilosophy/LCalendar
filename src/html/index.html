@@ -102,6 +102,18 @@
             'minDate': '1900-1',
             'maxDate': new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
         });
+        // 增加了回调     
+         calendarym.init({
+        'trigger': '#time1',
+        'type': 'date',
+        'minDate':year1+ '-' + month1 +'-'+ day1,//最小日期 注意：该值会覆盖标签内定义的日期范围
+        'maxDate':'2088-8-8',//最大日期 注意：该值会覆盖标签内定义的日期范围
+        'callback': {
+            finishMobileDate: function (value) {
+                console.log(value);
+            }
+        }
+    });
     </script>
 </body>
 
